@@ -1,0 +1,58 @@
+[
+  {
+    "title": "To Do List App",
+    "desc": "Aplikasi manajemen tugas dengan fitur LocalStorage & Dark Mode.",
+    "tags": ["JS", "LocalStorage"],
+    "link": "https://ruuudolfstudio.github.io/To-Do-List/",
+    "image": "thumbnail/image.png"
+  },
+  {
+    "title": "Toko Kopi Online",
+    "desc": "Landing page UMKM Kopi dengan fitur Cart & Direct WA.",
+    "tags": ["HTML", "CSS", "JS"],
+    "link": "https://ruuudolfstudio.github.io/Toko-Kopi/",
+    "image": "thumbnail/image1.png"
+  },
+  {
+    "title": "Song Linktree",
+    "desc": "Halaman bio link estetik untuk musisi atau konten kreator.",
+    "tags": ["HTML", "CSS"],
+    "link": "https://ruuudolfstudio.github.io/song-linktree/",
+    "image": "thumbnail/image2.png"
+  },
+  {
+    "title": "Quote Generator",
+    "desc": "Generate kutipan otomatis dengan fitur copy link instan.",
+    "tags": ["API", "JS"],
+    "link": "https://ruuudolfstudio.github.io/quote-generator/",
+    "image": "thumbnail/image3.png"
+  },
+  {
+    "title": "Top Up Game Store",
+    "desc": "Landing page responsif untuk bisnis Top Up Game.",
+    "tags": ["Responsive", "CSS"],
+    "link": "https://ruuudolfstudio.github.io/m-shop/",
+    "image": "thumbnail/image4.png"
+  },
+  {
+    "title": "Book Landing Page",
+    "desc": "Halaman promosi buku 'The Psychology of Money'.",
+    "tags": ["Layout", "Design"],
+    "link": "https://ruuudolfstudio.github.io/the-psycology-of-money/",
+    "image": "thumbnail/image5.png"
+  },
+  {
+    "title": "Project Tambahan 7",
+    "desc": "Project ini otomatis muncul hanya setelah tombol diklik.",
+    "tags": ["Demo", "JSON"],
+    "link": "#",
+    "image": "https://placehold.co/600x400"
+  },
+  {
+    "title": "Project Tambahan 8",
+    "desc": "Contoh data dinamis dari file JSON.",
+    "tags": ["New", "Update"],
+    "link": "#",
+    "image": "https://placehold.co/600x400"
+  }
+]
