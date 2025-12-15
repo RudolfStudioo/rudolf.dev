@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Articles | Nexus Tech</title>
+
+    <link rel="icon" href="f.jpg" type="image/png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+
+      /* Animation for fade-in effect when changing pages/filters */
+      .fade-in {
+        animation: fadeIn 0.4s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-50 selection:text-white flex flex-col min-h-screen"
+  >
+    <nav
+      class="sticky top-0 z-50 w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-700 shadow-lg"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <a
+            href="index.html"
+            class="flex-shrink-0 flex items-center gap-2 cursor-pointer transition hover:opacity-80"
+          >
+            <img
+              src="f.jpg"
+              alt="Nexus Tech Logo"
+              class="w-8 h-8 rounded-full border border-slate-600"
+            />
+            <span class="font-bold text-xl text-white tracking-wide"
+              >Nexus Tech</span
+            >
+          </a>
+          <div class="hidden md:block flex-1 max-w-md mx-8">
+            <div class="relative">
+              <span
+                class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400"
+                ><i class="fa-solid fa-search"></i
+              ></span>
+              <input
+                type="text"
+                id="searchInput"
+                class="w-full bg-slate-800 text-slate-200 border border-slate-700 rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder-slate-500 text-sm"
+                placeholder="Search topics..."
+              />
+            </div>
+          </div>
+          <div class="flex items-center gap-6">
+            <div
+              class="hidden md:flex gap-6 text-sm font-medium text-slate-300"
+            >
+              <a href="index.html" class="hover:text-indigo-400 transition"
+                >Home</a
+              >
+              <a href="article.html" class="text-indigo-400 font-semibold"
+                >Reviews</a
+              >
+              <a href="#" class="hover:text-indigo-400 transition">Tutorials</a>
+            </div>
+
+            <a
+              id="nav-signin-btn"
+              href="login.html"
+              class="px-5 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30"
+              >Sign In</a
+            >
+
+            <a
+              id="nav-user-profile"
+              href="login.html"
+              class="hidden flex items-center gap-3 pl-2 pr-4 py-1.5 rounded-full bg-slate-800 border border-slate-700 hover:border-indigo-500 transition group"
+            >
+              <img
+                id="nav-user-avatar"
+                src=""
+                alt="Profile"
+                class="w-8 h-8 rounded-full border border-slate-600 group-hover:border-indigo-500"
+              />
+              <div class="text-left">
+                <p
+                  id="nav-user-name"
+                  class="text-xs font-bold text-white leading-tight"
+                >
+                  User
+                </p>
+                <p class="text-[10px] text-indigo-400 font-medium">
+                  View Dashboard
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+      <div class="mb-8">
+        <nav class="flex text-sm font-medium text-slate-500 mb-2">
+          <a href="index.html" class="hover:text-indigo-600 transition">Home</a>
+          <span class="mx-2">/</span>
+          <span class="text-indigo-600">Articles</span>
+        </nav>
+        <h1 class="text-3xl font-bold text-slate-900 tracking-tight">
+          Technical Library
+        </h1>
+        <p class="text-slate-500 mt-2">
+          Deep dives into code, hardware, and engineering.
+        </p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+        <aside class="w-full lg:w-1/3 space-y-8">
+          <div
+            class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200"
+          >
+            <h3
+              class="font-bold text-slate-900 mb-4 border-l-4 border-indigo-500 pl-3"
+            >
+              Filter by Topic
+            </h3>
+            <ul class="space-y-2" id="categoryList"></ul>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200"
+          >
+            <h3
+              class="font-bold text-slate-900 mb-4 border-l-4 border-indigo-500 pl-3"
+            >
+              Popular Tags
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-3 py-1 bg-slate-100 text-slate-600 text-xs rounded-full cursor-pointer hover:bg-indigo-600 hover:text-white transition"
+                >React 19.2</span
+              >
+              <span
+                class="px-3 py-1 bg-slate-100 text-slate-600 text-xs rounded-full cursor-pointer hover:bg-indigo-600 hover:text-white transition"
+                >Redstone</span
+              >
+              <span
+                class="px-3 py-1 bg-slate-100 text-slate-600 text-xs rounded-full cursor-pointer hover:bg-indigo-600 hover:text-white transition"
+                >Docker</span
+              >
+              <span
+                class="px-3 py-1 bg-slate-100 text-slate-600 text-xs rounded-full cursor-pointer hover:bg-indigo-600 hover:text-white transition"
+                >RTX 5090</span
+              >
+              <span
+                class="px-3 py-1 bg-slate-100 text-slate-600 text-xs rounded-full cursor-pointer hover:bg-indigo-600 hover:text-white transition"
+                >TypeScript 6</span
+              >
+            </div>
+          </div>
+        </aside>
+
+        <div class="w-full lg:w-2/3">
+          <div
+            id="articlesGrid"
+            class="grid grid-cols-1 md:grid-cols-2 gap-6 min-h-[600px] content-start"
+          ></div>
+
+          <div
+            id="paginationControls"
+            class="mt-12 flex justify-center items-center gap-2"
+          ></div>
+        </div>
+      </div>
+    </main>
+
+    <footer
+      class="bg-slate-900 border-t border-slate-800 text-slate-400 py-12 mt-auto"
+    >
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        <div class="flex justify-center gap-6 mb-6">
+          <a href="#" class="hover:text-white transition"
+            ><i class="fa-brands fa-twitter text-xl"></i
+          ></a>
+          <a href="#" class="hover:text-white transition"
+            ><i class="fa-brands fa-github text-xl"></i
+          ></a>
+          <a href="#" class="hover:text-white transition"
+            ><i class="fa-brands fa-youtube text-xl"></i
+          ></a>
+        </div>
+        <p>&copy; 2025 Nexus Tech. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // ==========================================
+      // 1. DATA SOURCE (15 Realistic News Items - Dec 2025)
+      // ==========================================
+      const articles = [
+        // --- 1. EXISTING PAGES (LINKS RESTORED) ---
+        {
+          id: 1,
+          title: "Why RAM Prices Are Skyrocketing",
+          category: "Hardware",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrECyHsixuJHjUbGFxCYfcl-vRZV0Nk6xyvQ&s",
+          excerpt:
+            "Memory kits are getting expensive again. We analyze the market trends affecting DDR5 pricing.",
+          readTime: "6 min",
+          link: "/article-pages/ram_price_increase.html",
+        },
+        {
+          id: 2,
+          title: "The RISC-V Revolution: Is Open Source Silicon the Future?",
+          category: "Engineering",
+          image:
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Yunsup_Lee_holding_RISC_V_prototype_chip.jpg/250px-Yunsup_Lee_holding_RISC_V_prototype_chip.jpg",
+          excerpt:
+            "A tectonic shift is occurring in the embedded space as RISC-V challenges the x86 and ARM duopoly.",
+          readTime: "8 min",
+          link: "/article-pages/the_riscv_revolution.html",
+        },
+        {
+          id: 3,
+          title: "Is AI Destruction or Change?",
+          category: "Artificial Intelligence",
+          image:
+            "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2065&auto=format&fit=crop",
+          excerpt:
+            "Every major technological leap has been greeted with a mixture of utopian hope and apocalyptic fear.",
+          readTime: "10 min",
+          link: "/article-pages/ai_destruction.html",
+        },
+
+        // --- 2. NEW REALISTIC NEWS (LINKS ARE #) ---
+        {
+          id: 4,
+          title: "NVIDIA RTX 5090 Review: Is the 600W Power Draw Worth It?",
+          category: "Hardware",
+          image:
+            "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "We benchmark the new Blackwell architecture. It destroys 4K ray tracing, but your PSU might need an upgrade.",
+          readTime: "12 min",
+          link: "#",
+        },
+        {
+          id: 5,
+          title:
+            "React 19.2 is Here: Understanding the New <Activity> Component",
+          category: "Web Dev",
+          image:
+            "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "Released in Oct 2025, React 19.2 brings the new Activity API for better state preservation and Offscreen rendering.",
+          readTime: "8 min",
+          link: "#",
+        },
+        {
+          id: 6,
+          title:
+            "The Rise of Agentic AI: Why 2026 is the Year of Autonomous Bots",
+          category: "AI & Future Tech",
+          image:
+            "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "Moving beyond LLMs, 'Agentic AI' can actively perform tasks on your machine. We explore the security implications.",
+          readTime: "10 min",
+          link: "#",
+        },
+        {
+          id: 7,
+          title: "Minecraft 1.22 Update: The Redstone Revolution We Needed",
+          category: "Minecraft Technical",
+          image:
+            "https://images.unsplash.com/photo-1607513168936-96c2e36633c7?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "Mojang's latest snapshot introduces movable tile entities and faster hoppers. Here is the technical breakdown.",
+          readTime: "6 min",
+          link: "#",
+        },
+        {
+          id: 8,
+          title:
+            "Cybersecurity 2025: AI-Driven Phishing is Getting Impossible to Spot",
+          category: "Security",
+          image:
+            "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "Deepfake vishing and context-aware phishing emails are the top threats this year. How to protect your org.",
+          readTime: "9 min",
+          link: "#",
+        },
+        {
+          id: 9,
+          title:
+            "Why Rust is Finally Replacing C in the Linux Kernel (For Real)",
+          category: "Server/DevOps",
+          image:
+            "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "Memory safety isn't just a buzzword. We analyze the drivers migrating to Rust in Kernel 6.14.",
+          readTime: "7 min",
+          link: "#",
+        },
+        {
+          id: 10,
+          title: "TypeScript 6.0 Beta: Native Type Syntax Proposal?",
+          category: "Web Dev",
+          image:
+            "https://images.unsplash.com/photo-1587620962725-abab7fe55159?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "The TC39 proposal for 'Type Annotations' in JavaScript is moving forward. What this means for your build step.",
+          readTime: "5 min",
+          link: "#",
+        },
+        {
+          id: 11,
+          title: "Quantum Decryption: Are Our RSA Keys Safe in 2026?",
+          category: "Security",
+          image:
+            "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "With IBM's latest QPU milestone, standard encryption is under threat. It's time to learn Post-Quantum Cryptography.",
+          readTime: "14 min",
+          link: "#",
+        },
+        {
+          id: 12,
+          title: "Building Micro-Frontends with Vite and Module Federation",
+          category: "Web Dev",
+          image:
+            "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "Webpack is no longer the only king. How to implement scalable micro-frontends using the modern Vite stack.",
+          readTime: "15 min",
+          link: "#",
+        },
+        {
+          id: 13,
+          title: "The End of Kubernetes? Why 'Wasm on the Edge' is Trending",
+          category: "Server/DevOps",
+          image:
+            "https://images.unsplash.com/photo-1667372393119-c81c0cda0c18?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "WebAssembly is moving out of the browser. Is it lighter and faster than Docker containers for edge computing?",
+          readTime: "9 min",
+          link: "#",
+        },
+        {
+          id: 14,
+          title: "Solid State Batteries: The 2026 Smartphone Revolution?",
+          category: "Hardware",
+          image:
+            "https://images.unsplash.com/photo-1565514020176-db99d5045352?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "Samsung's latest prototype promises 2-day battery life and zero degradation. Is it ready for the S26?",
+          readTime: "6 min",
+          link: "#",
+        },
+        {
+          id: 15,
+          title: "CSS Container Queries are Finally Mainstream",
+          category: "Web Dev",
+          image:
+            "https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?auto=format&fit=crop&q=80&w=600",
+          excerpt:
+            "Stop using media queries for components. Learn how to build truly responsive cards in 2025.",
+          readTime: "5 min",
+          link: "#",
+        },
+      ];
+
+      // ==========================================
+      // 2. STATE MANAGEMENT
+      // ==========================================
+      const state = {
+        currentPage: 1,
+        itemsPerPage: 6,
+        currentCategory: "All",
+        searchQuery: "",
+      };
+
+      // ==========================================
+      // 3. DOM ELEMENTS
+      // ==========================================
+      const gridElement = document.getElementById("articlesGrid");
+      const paginationElement = document.getElementById("paginationControls");
+      const categoryListElement = document.getElementById("categoryList");
+      const searchInput = document.getElementById("searchInput");
+
+      // ==========================================
+      // 4. HELPER: Get Color by Category
+      // ==========================================
+      function getCategoryColor(category) {
+        const colors = {
+          "Web Dev": "bg-blue-600",
+          "Server/DevOps": "bg-orange-600",
+          Hardware: "bg-slate-700",
+          "Minecraft Technical": "bg-green-600",
+          "AI & Future Tech": "bg-purple-600",
+          Security: "bg-red-600",
+          Engineering: "bg-blue-500",
+          "Artificial Intelligence": "bg-indigo-500",
+        };
+        // Default color if category not found
+        return colors[category] || "bg-indigo-600";
+      }
+
+      // ==========================================
+      // 5. CORE FUNCTION: Render Sidebar Categories
+      // ==========================================
+      function renderSidebar() {
+        // Calculate counts dynamically
+        const counts = articles.reduce((acc, article) => {
+          acc[article.category] = (acc[article.category] || 0) + 1;
+          return acc;
+        }, {});
+
+        const categories = ["All", ...Object.keys(counts)];
+
+        let html = "";
+        categories.forEach((cat) => {
+          const count = cat === "All" ? articles.length : counts[cat];
+          const isActive = state.currentCategory === cat;
+
+          // Styling classes based on active state
+          const liClass = isActive
+            ? "bg-indigo-50 border-r-4 border-indigo-600"
+            : "hover:bg-slate-50 border-r-4 border-transparent";
+
+          const textClass = isActive ? "text-indigo-700" : "text-slate-600";
+          const badgeClass = isActive
+            ? "bg-indigo-100 text-indigo-700"
+            : "bg-slate-100 text-slate-500";
+
+          html += `
+                <li>
+                    <button onclick="setCategory('${cat}')" class="w-full flex justify-between items-center p-3 rounded-l transition-all duration-200 ${liClass}">
+                        <span class="${textClass} text-sm font-medium">${cat}</span>
+                        <span class="${badgeClass} py-0.5 px-2 rounded-full text-xs font-bold">${count}</span>
+                    </button>
+                </li>
+                `;
+        });
+
+        categoryListElement.innerHTML = html;
+      }
+
+      // ==========================================
+      // 6. CORE FUNCTION: Filter Articles
+      // ==========================================
+      function getFilteredArticles() {
+        return articles.filter((article) => {
+          const matchesCategory =
+            state.currentCategory === "All" ||
+            article.category === state.currentCategory;
+          const matchesSearch = article.title
+            .toLowerCase()
+            .includes(state.searchQuery.toLowerCase());
+          return matchesCategory && matchesSearch;
+        });
+      }
+
+      // ==========================================
+      // 7. CORE FUNCTION: Render Grid
+      // ==========================================
+      function renderArticles() {
+        const filtered = getFilteredArticles();
+
+        // Calculate Pagination indices
+        const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+        const endIndex = startIndex + state.itemsPerPage;
+        const paginatedItems = filtered.slice(startIndex, endIndex);
+
+        // Empty State
+        if (paginatedItems.length === 0) {
+          gridElement.innerHTML = `
+                    <div class="col-span-1 md:col-span-2 flex flex-col items-center justify-center py-12 text-center text-slate-400">
+                        <i class="fa-solid fa-folder-open text-4xl mb-4"></i>
+                        <p>No articles found for "${state.searchQuery}"</p>
+                        <button onclick="clearSearch()" class="mt-4 text-indigo-600 font-semibold hover:underline">Clear Search</button>
+                    </div>
+                `;
+          paginationElement.innerHTML = "";
+          return;
+        }
+
+        // Generate HTML for Cards
+        gridElement.innerHTML = paginatedItems
+          .map(
+            (article) => `
+                <article class="group bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition duration-300 flex flex-col h-full fade-in">
+                  <a href="${
+                    article.link || "#"
+                  }" class="flex flex-col h-full hover:text-indigo-600 transition">
+                    <div class="relative h-48 overflow-hidden shrink-0">
+                        <img src="${article.image}" alt="${
+              article.title
+            }" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <span class="absolute top-3 left-3 ${getCategoryColor(
+                          article.category
+                        )} text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">
+                            ${article.category}
+                        </span>
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2 leading-tight group-hover:text-indigo-600 transition">
+                           ${article.title}
+                        </h3>
+                        <p class="text-slate-600 text-sm mb-4 line-clamp-2 flex-grow">
+                            ${article.excerpt}
+                        </p>
+                        <div class="mt-auto flex items-center text-xs text-slate-400 font-medium">
+                           <i class="fa-regular fa-clock mr-1"></i> ${
+                             article.readTime
+                           } read
+                        </div>
+                    </div>
+                </a>
+                </article>
+            `
+          )
+          .join("");
+
+        renderPagination(filtered.length);
+      }
+
+      // ==========================================
+      // 8. CORE FUNCTION: Render Pagination
+      // ==========================================
+      function renderPagination(totalItems) {
+        const totalPages = Math.ceil(totalItems / state.itemsPerPage);
+
+        if (totalPages <= 1) {
+          paginationElement.innerHTML = "";
+          return;
+        }
+
+        let html = "";
+
+        // Previous Button
+        html += `
+                <button onclick="changePage(${state.currentPage - 1})" 
+                    class="px-3 py-2 rounded-lg border border-slate-200 text-slate-500 text-sm font-medium hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    ${state.currentPage === 1 ? "disabled" : ""}>
+                    Previous
+                </button>
+            `;
+
+        // Numbered Buttons
+        for (let i = 1; i <= totalPages; i++) {
+          const isActive = state.currentPage === i;
+          const activeClass =
+            "bg-indigo-600 text-white shadow-md shadow-indigo-200 border-indigo-600";
+          const inactiveClass =
+            "border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-indigo-600";
+
+          html += `
+                    <button onclick="changePage(${i})" 
+                        class="px-3 py-2 rounded-lg border text-sm font-medium transition ${
+                          isActive ? activeClass : inactiveClass
+                        }">
+                        ${i}
+                    </button>
+                `;
+        }
+
+        // Next Button
+        html += `
+                <button onclick="changePage(${state.currentPage + 1})" 
+                    class="px-3 py-2 rounded-lg border border-slate-200 text-slate-500 text-sm font-medium hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    ${state.currentPage === totalPages ? "disabled" : ""}>
+                    Next
+                </button>
+            `;
+
+        paginationElement.innerHTML = html;
+      }
+
+      // ==========================================
+      // 9. INTERACTION FUNCTIONS
+      // ==========================================
+
+      function setCategory(category) {
+        state.currentCategory = category;
+        state.searchQuery = ""; // Reset search
+        searchInput.value = ""; // Clear input visual
+        state.currentPage = 1;
+        renderSidebar();
+        renderArticles();
+      }
+
+      function changePage(page) {
+        state.currentPage = page;
+        renderArticles();
+        document.querySelector("main").scrollIntoView({ behavior: "smooth" });
+      }
+
+      function clearSearch() {
+        state.searchQuery = "";
+        searchInput.value = "";
+        renderArticles();
+      }
+
+      // 1. EVENT LISTENER: Typing Real-time
+      searchInput.addEventListener("input", (e) => {
+        state.searchQuery = e.target.value;
+        state.currentPage = 1;
+        renderArticles();
+      });
+
+      // 2. EVENT LISTENER: Mencegah Reload saat Enter
+      searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+        }
+      });
+
+      // ==========================================
+      // 10. INITIALIZATION
+      // ==========================================
+      (function init() {
+        // A. Render Awal Sidebar
+        renderSidebar();
+
+        // B. CEK URL PARAMETER (Paket dari Index.html)
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryParam = urlParams.get("q");
+
+        if (queryParam) {
+          state.searchQuery = queryParam;
+          searchInput.value = queryParam;
+        }
+
+        // C. Render Artikel
+        renderArticles();
+
+        // D. AUTO-LOGIN CHECKER
+        const activeUser = localStorage.getItem("nexus_active_session");
+        const userDB = JSON.parse(localStorage.getItem("nexus_users_db")) || [];
+
+        const signinBtn = document.getElementById("nav-signin-btn");
+        const profileBtn = document.getElementById("nav-user-profile");
+        const avatarImg = document.getElementById("nav-user-avatar");
+        const nameText = document.getElementById("nav-user-name");
+
+        if (activeUser) {
+          const userData = userDB.find((u) => u.username === activeUser);
+          if (userData) {
+            avatarImg.src = userData.avatar;
+            nameText.textContent = userData.fullname;
+            signinBtn.classList.add("hidden");
+            profileBtn.classList.remove("hidden");
+            profileBtn.classList.add("flex");
+          }
+        } else {
+          signinBtn.classList.remove("hidden");
+          profileBtn.classList.add("hidden");
+          profileBtn.classList.remove("flex");
+        }
+      })();
+    </script>
+  </body>
+</html>
