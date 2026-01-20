@@ -10,7 +10,7 @@
     "title": "Toko Kopi Online",
     "desc": "Landing page UMKM Kopi dengan fitur Cart & Direct WA.",
     "tags": ["HTML", "CSS", "JS"],
-    "link": "https://ruuudolfstudio.github.io/Toko-Kopi/",
+    "link": "https://toko-kopi-abadi.vercel.app/",
     "image": "thumbnail/image1.png"
   },
   {
@@ -56,3 +56,4 @@
     "image": "https://placehold.co/600x400"
   }
 ]
+
